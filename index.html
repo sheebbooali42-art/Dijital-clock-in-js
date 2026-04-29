@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: inherit;
+            list-style: none;
+
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            background: url(image/1732899897115.jpg) no-repeat center;
+            background-size: cover;
+
+        }
+
+        .Clockcontainer {
+            width: 500px;
+            color: blue;
+            border-radius: 10px;
+            background: url(image/50.jpg) no-repeat center center;
+            background-size: cover;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            border: none;
+            padding: 5px;
+            color: red;
+            outline: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: gold;
+            margin: auto;
+
+        }
+
+        h1{
+            font-size: 60px;
+        }
+
+        p {
+            color: white;
+            gap: 30px;
+        }
+
+        .done {
+            color: blueviolet;
+            font-weight: bold;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .formet {
+            background: yellowgreen;
+            transition: all 300ms linear;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Clockcontainer" id="clockc">
+        <button>24hrs</button>
+        <h1>12:12:12</h1>
+        <p> </p>
+    </div>
+</body>
+<script>
+    const h1 = document.querySelector("h1");
+    const p = document.querySelector("p");
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const button = document.querySelector("button");
+     toggle = false;
+    button.addEventListener("click",
+     function () {
+        toggle = !toggle;
+        button.classList.toggle("formet");
+    });
+    function printday() {
+        const d = new Date();
+        const today = d.getDay();
+
+        for (let i = 0; i < days.length; i++) {
+            const span = document.createElement("span");
+            span.innerText = days[i] + " ";
+
+            if (i === today) {
+                span.classList.add("done");
+            }
+            p.appendChild(span);
+        }
+    }
+
+    printday();
+
+    function clock() {
+        const d = new Date();
+        let h = d.getHours();
+        let m = d.getMinutes();
+        let s = d.getSeconds();
+
+        if (toggle  && h > 12) {
+            h = h - 12;
+        }
+
+        if (h < 10) h = "0" + h;
+        if (m < 10) m = "0" + m;
+        if (s < 10) s = "0" + s;
+
+        h1.innerText = `${h}:${m}:${s}`;
+    }
+
+    setInterval(clock, 1000);
+    clock();
+</script>
+</html>
